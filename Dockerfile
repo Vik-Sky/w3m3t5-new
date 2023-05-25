@@ -10,4 +10,4 @@ ENV GOOS=linux \
 # Збираємо додаток до контейнеру
 RUN go build -o myapp
 # Стартуємо додаток при старті контейнера
-CMD ["./myapp", "start"]
+ENTRYPOINT ["./myapp", "start"]

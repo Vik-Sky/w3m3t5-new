@@ -23,12 +23,12 @@ clean:
 	rm -f $(BINARY_NAME)
 	docker ps -a
 	docker images
-	docker stop $$(docker ps -aq)
-	docker rm $$(docker ps -aq)
+#	docker stop $$(docker ps -aq)
+#	docker rm $$(docker ps -aq)
 	docker rmi $(IMAGE_TAG)
 	docker ps -a
 	docker images
 # Створення Docker-образу
 build:
 	docker build -t $(IMAGE_TAG) -f Dockerfile .
-	docker run $(IMAGE_TAG)
+#	docker run $(IMAGE_TAG)
