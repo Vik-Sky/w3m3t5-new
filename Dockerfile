@@ -1,3 +1,4 @@
+RUN make build
 # Базовий образ
 FROM quay.io/projectquay/golang:1.20
 # Директорія в середині контейнера

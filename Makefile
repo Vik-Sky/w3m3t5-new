@@ -5,7 +5,7 @@ IMAGE_TAG := myapp:latest
 GOOS=linux
 GOARCH=amd64
 # Основна ціль, яка буде виконуватися за замовчуванням
-all: linux arm macos windows
+all: linux
 # Збірка коду для Linux
 linux:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o $(BINARY_NAME)
@@ -21,14 +21,9 @@ windows:
 # Очищення згенерованих файлів / Видалення Docker-образу
 clean:
 	rm -f $(BINARY_NAME)
-	docker ps -a
-	docker images
-#	docker stop $$(docker ps -aq)
-#	docker rm $$(docker ps -aq)
 	docker rmi $(IMAGE_TAG)
-	docker ps -a
-	docker images
 # Створення Docker-образу
 build:
+#	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o $(BINARY_NAME)
 	docker build -t $(IMAGE_TAG) -f Dockerfile .
 #	docker run $(IMAGE_TAG)
