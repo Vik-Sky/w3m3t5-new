@@ -1,6 +1,6 @@
 # Змінні для імені вихідного файлу і тегу образу Docker
-BINARY_NAME=myapp
-IMAGE_TAG=myapp:latetast
+BINARY_NAME := myapp
+IMAGE_TAG := myapp:latest
 # Виявлення середовища
 GOOS=linux
 GOARCH=amd64
@@ -20,8 +20,15 @@ windows:
 	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -v -o $(BINARY_NAME)
 # Очищення згенерованих файлів / Видалення Docker-образу
 clean:
-	rm -f $(BINARY_NAME)?
+	rm -f $(BINARY_NAME)
+	docker ps -a
+	docker images
+	docker stop $$(docker ps -q -n 1)
+	docker rm $$(docker ps -q -n 1)
 	docker rmi $(IMAGE_TAG)
+	docker ps -a
+	docker images
 # Створення Docker-образу
-docker-build:
+build:
 	docker build -t $(IMAGE_TAG) -f Dockerfile .
+	docker run $(IMAGE_TAG)
