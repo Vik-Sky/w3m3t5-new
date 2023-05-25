@@ -23,8 +23,8 @@ clean:
 	rm -f $(BINARY_NAME)
 	docker ps -a
 	docker images
-	docker stop $$(docker ps -q -n 1)
-	docker rm $$(docker ps -q -n 1)
+	docker stop $$(docker ps -aq)
+	docker rm $$(docker ps -aq)
 	docker rmi $(IMAGE_TAG)
 	docker ps -a
 	docker images
