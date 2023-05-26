@@ -1,6 +1,7 @@
 # Змінні для імені вихідного файлу і тегу образу Docker
 BINARY_NAME := myapp
 IMAGE_TAG := myapp:latest
+VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 # Виявлення середовища
 TARGETOS=linux #linux darwin windows
 TARGETARCH=arm64 #amd64 arm64
@@ -24,7 +25,6 @@ clean:
 	docker rmi $(IMAGE_TAG)
 # Створення Docker-образу
 image:
-	which go
-	CGO_ENABLED=1 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o $(BINARY_NAME)
-	docker build -t $(BINARY_NAME) -f Dockerfile .
+	docker build -t $(BINARY_NAME) --build-arg TARGETARCH=${TARGETARCH} --build-arg TARGETOS=${TARGETOS} -f Dockerfile .
 #	docker run $(IMAGE_TAG)
+#	docker build -t $(BINARY_NAME) -f Dockerfile .
