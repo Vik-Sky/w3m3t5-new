@@ -24,6 +24,7 @@ clean:
 	docker rmi $(IMAGE_TAG)
 # Створення Docker-образу
 image:
+	which go
 	CGO_ENABLED=1 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o $(BINARY_NAME)
 	docker build -t $(BINARY_NAME) -f Dockerfile .
 #	docker run $(IMAGE_TAG)
